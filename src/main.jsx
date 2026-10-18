@@ -5,6 +5,9 @@ import Layout from './Layout.jsx';
 import './index.css'
 // import App from './App.jsx'
 import Home from './Pages/Home.jsx';
+import Discover from './Pages/Discover.jsx'
+import About from './Pages/About.jsx'
+import SearchResults from './Pages/SearchResults .jsx';
 
 const router = createBrowserRouter([
   {
@@ -14,7 +17,19 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />
-      }
+      },
+      {
+        path: "discover",
+        element: <Discover />
+      },
+      {
+        path: "about",
+        element: <About />
+      },
+      {
+        path: "search",
+        element: <SearchResults />
+      },
     ]
   }
 ])

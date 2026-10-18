@@ -13,11 +13,10 @@ export default function MoviesCard({ movie }) {
 
     return (
         <div className="w-52 h-auto rounded-lg text-white">
-
             <img
                 src={posterLink}
                 alt={`${movieName} poster`}
-                className="rounded-lg w-full object-cover aspect-2/3 shadow-lg duration-300 hover:-translate-y-2 hover:shadow-xl"
+                className="rounded-lg w-full h-full object-cover aspect-2/3 shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:-rotate-2 hover:-translate-2 hover:shadow-xl"
                 onError={(e) => {
                     e.currentTarget.onerror = null;
                     e.currentTarget.src =
@@ -25,11 +24,11 @@ export default function MoviesCard({ movie }) {
                 }}
             />
 
-            <h2 className="text-lg text-black font-bold mt-2">
+            <h2 className="text-lg text-gray-200 font-bold mt-2">
                 {movieName}
             </h2>
 
-            <div className="flex justify-between items-center mt-1 text-sm text-black/70">
+            <div className="flex justify-between items-center mt-1 text-sm text-gray-400">
                 <span>{releaseYear}</span>
 
                 <span className="text-orange-400">
