@@ -8,6 +8,7 @@ import Home from './Pages/Home.jsx';
 import Discover from './Pages/Discover.jsx'
 import About from './Pages/About.jsx'
 import SearchResults from './Pages/SearchResults .jsx';
+import MovieDetails from './Pages/MovieDetails.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <SearchResults />
+      },
+      {
+        path: "movie/:movieId",
+        element: <MovieDetails />
+      },
+      {
+        path: "tv/:movieId",
+        element: <MovieDetails />
       },
     ]
   }

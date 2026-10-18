@@ -33,7 +33,7 @@ export default function Navbar () {
                     <h1
                         className="text-white text-3xl font-bold"
                     >
-                        Movie<span className="text-orange-500">Muse.</span>
+                        Film<span className="text-orange-500">Orae.</span>
                     </h1>
                     <ul
                         className="flex gap-10"
