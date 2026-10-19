@@ -276,14 +276,15 @@ function MovieDetails() {
                                     className="flex flex-nowrap overflow-y-hidden overflow-x-auto hide-scrollbar scroll-smooth gap-10 pb-4"
                                 >
                                     {cast.map((actor) => {
-                                        const castName = actor.name;
+                                        const castName = actor.name || "NA";
+                                        const characterName = actor.character || "NA";
                                         const profilePic = actor.profile_path
                                             ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
                                             : "https://placehold.co/185x278?text=No+Photo";
                                         return (
                                             <div 
                                                 key={actor.id}
-                                                className="shrink-0"
+                                                className="shrink-0 w-42"
                                             >
                                                 <img 
                                                     src={profilePic}
@@ -291,9 +292,14 @@ function MovieDetails() {
                                                     className="w-42 h-42 rounded-full object-cover"
                                                 />
                                                 <h2
-                                                    className="flex justify-center pt-4 font-bold tracking-wide text-md"
+                                                    className="text-center pt-4 font-bold tracking-wide text-md"
                                                 >
-                                                    {actor.name}
+                                                    {castName}
+                                                </h2>
+                                                <h2
+                                                    className="wrap-break-word max-w-42 text-center pt-1 font-bold tracking-wide text-md text-gray-400"
+                                                >
+                                                    ({characterName})
                                                 </h2>
                                             </div>
                                         )
