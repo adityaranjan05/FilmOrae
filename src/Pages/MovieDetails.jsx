@@ -7,6 +7,7 @@ function MovieDetails() {
     const [loading, setLoading] = useState(false);
     const [movieDetails, setMovieDetails] = useState({});
     const [cast, setCast] = useState([]);
+    const [trailer, setTrailer] = useState("")
 
     const { movieId } = useParams();
     const location = useLocation();
@@ -73,12 +74,13 @@ function MovieDetails() {
             setLoading(true);
             setError("");
             try {
-                const [response1, response2] = await Promise.all([
+                const [response1, response2, response3] = await Promise.all([
                     fetch(`https://api.themoviedb.org/3/${mediaType}/${movieId}?api_key=${apiKey}`),
-                    fetch(`https://api.themoviedb.org/3/${mediaType}/${movieId}/credits?api_key=${apiKey}`)
+                    fetch(`https://api.themoviedb.org/3/${mediaType}/${movieId}/credits?api_key=${apiKey}`),
+                    fetch(`https://api.themoviedb.org/3/${mediaType}/${movieId}/videos?api_key=${apiKey}`)
                 ]);
 
-                if (!response1.ok || !response2.ok) {
+                if (!response1.ok || !response2.ok || !response3.ok) {
                     throw new Error("Failed to fetch movies.");
                 }
                 const data1 = await response1.json();
@@ -86,10 +88,21 @@ function MovieDetails() {
 
                 const data2 = await response2.json();
                 setCast(data2.cast || []);
+
+                const data3 = await response3.json();
+
+                const trailerKey = data3.results.find(
+                    (v) => v.type === "Trailer" && v.site === "YouTube"
+                )?.key;
+
+                if (trailerKey) {
+                    setTrailer(`https://www.youtube.com/embed/${trailerKey}`);
+                }
             }
             catch (err) {
                 setMovieDetails({})
                 setCast([]);
+                setTrailer("");
                 setError(err.message || "Something went wrong.");
             }
             finally {
@@ -289,7 +302,7 @@ function MovieDetails() {
                                                 <img 
                                                     src={profilePic}
                                                     alt={actor.name}
-                                                    className="w-42 h-42 rounded-full object-cover"
+                                                    className="w-42 h-42 rounded-full object-cover select-none"
                                                 />
                                                 <h2
                                                     className="text-center pt-4 font-bold tracking-wide text-md"
@@ -305,6 +318,18 @@ function MovieDetails() {
                                         )
                                     })}
                                 </div>
+                                
+                                {trailer && (
+                                    <>
+                                        <iframe
+                                             src={trailer}
+                                            title={`${title} trailer`}
+                                            className=" w-full h-[85dvh] aspect-video rounded-xl"
+                                            
+                                            allowFullScreen
+                                        />
+                                    </>
+                                )}
                             </div>
                         </div>
                     </section>
@@ -325,7 +350,7 @@ function MovieDetails() {
                                         <img
                                             src={seasonPoster}
                                             alt={season.name}
-                                            className="aspect-[2/3] w-full rounded-xl object-cover"
+                                            className="aspect-2/3 w-full rounded-xl object-cover"
                                         />
 
                                         <h3 className="font-semibold">{season.name}</h3>
