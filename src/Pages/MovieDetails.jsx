@@ -1,5 +1,6 @@
-import { useParams, useLocation } from "react-router";
-import { useState, useEffect } from "react";
+import { useParams, useLocation, Link } from "react-router";
+import { useState, useEffect, useRef } from "react";
+import { MoveUpRight, Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 function MovieDetails() {
     const [error, setError] = useState("");
@@ -50,6 +51,22 @@ function MovieDetails() {
     const nextEpisode = movieDetails.next_episode_to_air;
     const inProduction = movieDetails.in_production;
 
+    const scrollRef = useRef(null);
+    
+    function scrollLeft() {
+        scrollRef.current?.scrollBy({
+            left: -600,
+            behavior: "smooth",
+        });
+    }
+
+    function scrollRight() {
+        scrollRef.current?.scrollBy({
+            left: 600,
+            behavior: "smooth",
+        });
+    }
+
     // Fetching Data
     useEffect(() => {
         async function getMovieDetails() {
@@ -94,75 +111,194 @@ function MovieDetails() {
                                 src={backgroundImg}
                                 alt={title}
                                 className="fixed inset-0 z-0 h-full w-full object-cover opacity-15"
-                            />
+                                />
                         </div>
                         <div 
-                            className="relative z-10 flex gap-8 px-6 py-8 text-white"
+                            className="relative z-10 flex flex-col gap-8 px-12 py-12 text-white space-y-6"
                         >
-                            <img 
-                                src={posterLink}
-                                alt={title}
-                                className="h-auto w-64 shrink-0 self-start rounded-xl object-contain"
-                            />
-                            <div className="min-w-0 flex-1 space-y-6">
-                                <h2 className="text-5xl font-bold tracking-tight">
-                                    {title}
-                                </h2>
+                            <div className="flex gap-16">
+                                <img 
+                                    src={posterLink}
+                                    alt={title}
+                                    className="h-auto w-64 shrink-0 self-start rounded-xl object-contain border-2 border-purple-800 drop-shadow-xl drop-shadow-purple-800/20 transition-all duration-200 hover:scale-105 hover:rotate-x-10 hover:rotate-y-12 hover:drop-shadow-2xl hover:drop-shadow-purple-800/20"
+                                />
+                                <div className="min-w-0 flex-1 space-y-4">
+                                    <h4
+                                        className="px-3 py-0.5 rounded-xl bg-purple-950/80 w-fit border border-purple-800"
+                                    >
+                                        Movie
+                                    </h4>
 
-                                <div className="grid grid-cols-3 gap-x-6 gap-y-3">
-                                    <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:rotate-y-10 hover:rotate-x-10">
-                                        <p className="text-sm text-gray-400">Release Date</p>
-                                        <p>{releaseDate || "N/A"}</p>
+                                    <h2 className="text-5xl font-bold tracking-tight">
+                                        {title}
+                                    </h2>
+
+                                    <ul
+                                        className="flex flex-wrap gap-3"
+                                    >
+                                        {genres.map((genre) => {
+                                            return (
+                                                <li
+                                                    key={genre.id}
+                                                    className="rounded-full border border-purple-800 bg-purple-950/90 px-3 py-1 text-sm"
+                                                >
+                                                    {genre.name}
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+
+                                    <div className="flex gap-2 items-end">
+                                        <Star className="text-yellow-500 fill-yellow-500 w-8 h-8"/>
+                                        <h4 className="text-2xl">
+                                            {rating != null ? rating.toFixed(1) : "N/A"}
+                                        </h4>
+                                        <h5 className="text-gray-400 text-md self-end">
+                                            /10    
+                                        </h5>
                                     </div>
 
-                                    <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:rotate-y-10 hover:rotate-x-10">
-                                        <p className="text-sm text-gray-400">Runtime</p>
-                                        <p>{runtime != null ? `${runtime} minutes` : "N/A"}</p>
+                                    <p
+                                        className="text-gray-400 max-w-4xl"
+                                    >
+                                        {overview || "Overview unavailable."}
+                                    </p>
+
+                                    <div className="grid grid-cols-3 gap-x-6 gap-y-3">
+                                        <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
+                                            <p className="text-sm text-gray-400">Release Date</p>
+                                            <p>{releaseDate || "N/A"}</p>
+                                        </div>
+
+                                        <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
+                                            <p className="text-sm text-gray-400">Runtime</p>
+                                            <p>{runtime != null ? `${runtime} minutes` : "N/A"}</p>
+                                        </div>
+
+                                        <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
+                                            <p className="text-sm text-gray-400">Status</p>
+                                            <p>{status || "N/A"}</p>
+                                        </div>
+
+                                        <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
+                                            <p className="text-sm text-gray-400">Budget</p>
+                                            <p>
+                                                {productionBudget > 0
+                                                    ? `$${productionBudget.toLocaleString()}`
+                                                    : "Unavailable"}
+                                            </p>
+                                        </div>
+
+                                        <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
+                                            <p className="text-sm text-gray-400">Box Office</p>
+                                            <p>
+                                                {boxOffice > 0
+                                                    ? `$${boxOffice.toLocaleString()}`
+                                                    : "Unavailable"}
+                                            </p>
+                                        </div>
+
+                                        <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
+                                            <p className="text-sm text-gray-400">Language</p>
+                                            <p>{originalLanguage?.toUpperCase() || "N/A"}</p>
+                                        </div>
+
+                                        <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
+                                            <p className="text-sm text-gray-400">Popularity</p>
+                                            <p>
+                                                {popularity != null ? popularity.toFixed(2) : "N/A"}
+                                            </p>
+                                        </div>
+
+                                        <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
+                                            <p className="text-sm text-gray-400">Production Companies</p>
+                                            <ul
+                                                className="flex gap-8 list-disc list-outside pl-4 space-y-1"
+                                            >
+                                                {productionCompanies.map((company) => {
+                                                    return (
+                                                        <li
+                                                            key={company.id}
+                                                            className="text-gray-300 text-sm"
+                                                        >
+                                                            {company.name}
+                                                        </li>
+                                                    )
+                                                })}
+                                            </ul>
+                                        </div>
                                     </div>
 
-                                    <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:rotate-y-10 hover:rotate-x-10">
-                                        <p className="text-sm text-gray-400">Status</p>
-                                        <p>{status || "N/A"}</p>
-                                    </div>
+                                    {tagline && (
+                                        <p className="italic text-purple-300">{tagline}</p>
+                                    )}
 
-                                    <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:rotate-y-10 hover:rotate-x-10">
-                                        <p className="text-sm text-gray-400">Budget</p>
-                                        <p>
-                                            {productionBudget > 0
-                                                ? `$${productionBudget.toLocaleString()}`
-                                                : "Unavailable"}
-                                        </p>
-                                    </div>
+                                    {homepageLink && (
+                                        <a
+                                            href={homepageLink}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="flex gap-2 text-purple-300 hover:text-purple-200"
+                                        >
+                                            <span>Official Website</span> <span><MoveUpRight /></span>
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
 
-                                    <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:rotate-y-10 hover:rotate-x-10">
-                                        <p className="text-sm text-gray-400">Box Office</p>
-                                        <p>
-                                            {boxOffice > 0
-                                                ? `$${boxOffice.toLocaleString()}`
-                                                : "Unavailable"}
-                                        </p>
-                                    </div>
+                            <div className="space-y-12">
+                                <div className="flex justify-between">
+                                    <h1 className="text-3xl font-bold tracking-wide">
+                                        Cast
+                                    </h1>
+                                    <div className="flex gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={scrollLeft}
+                                            aria-label={`Scroll ${title} left`}
+                                            className="flex h-10 w-10 items-center justify-center rounded-full border border-purple-400/30 bg-purple-950/70 text-white transition hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        >
+                                            <ChevronLeft size={22} />
+                                        </button>
 
-                                    <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:rotate-y-10 hover:rotate-x-10">
-                                        <p className="text-sm text-gray-400">Language</p>
-                                        <p>{originalLanguage?.toUpperCase() || "N/A"}</p>
+                                        <button
+                                            type="button"
+                                            onClick={scrollRight}
+                                            aria-label={`Scroll ${title} right`}
+                                            className="flex h-10 w-10 items-center justify-center rounded-full border border-purple-400/30 bg-purple-950/70 text-white transition hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        >
+                                            <ChevronRight size={22} />
+                                        </button>
                                     </div>
                                 </div>
-
-                                {tagline && (
-                                    <p className="italic text-purple-300">{tagline}</p>
-                                )}
-
-                                {homepageLink && (
-                                    <a
-                                        href={homepageLink}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="inline-block text-purple-300 hover:text-purple-200"
-                                    >
-                                        Official Website ↗
-                                    </a>
-                                )}
+                                <div
+                                    ref={scrollRef}
+                                    className="flex flex-nowrap overflow-y-hidden overflow-x-auto hide-scrollbar scroll-smooth gap-10 pb-4"
+                                >
+                                    {cast.map((actor) => {
+                                        const castName = actor.name;
+                                        const profilePic = actor.profile_path
+                                            ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
+                                            : "https://placehold.co/185x278?text=No+Photo";
+                                        return (
+                                            <div 
+                                                key={actor.id}
+                                                className="shrink-0"
+                                            >
+                                                <img 
+                                                    src={profilePic}
+                                                    alt={actor.name}
+                                                    className="w-42 h-42 rounded-full object-cover"
+                                                />
+                                                <h2
+                                                    className="flex justify-center pt-4 font-bold tracking-wide text-md"
+                                                >
+                                                    {actor.name}
+                                                </h2>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </section>
