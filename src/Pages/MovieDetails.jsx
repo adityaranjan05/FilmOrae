@@ -9,9 +9,11 @@ function MovieDetails() {
     const [cast, setCast] = useState([]);
     const [trailer, setTrailer] = useState("")
 
+    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+
     const { movieId } = useParams();
     const location = useLocation();
-    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+        
 
     const mediaType = location.pathname.startsWith("/tv/")
         ? "tv"
@@ -223,16 +225,18 @@ function MovieDetails() {
                                             </p>
                                         </div>
 
-                                        <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
-                                            <p className="text-sm text-gray-400">Production Companies</p>
+                                        <div className="min-w-0 rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
+                                            <p className="text-sm text-gray-400">
+                                                Production Companies
+                                            </p>
                                             <ul
-                                                className="flex gap-8 list-disc list-outside pl-4 space-y-1"
+                                                className="mt-2 flex flex-wrap gap-x-8 gap-y-2 pl-4 list-disc list-outside"
                                             >
                                                 {productionCompanies.map((company) => {
                                                     return (
                                                         <li
                                                             key={company.id}
-                                                            className="text-gray-300 text-sm"
+                                                            className="min-w-0 max-w-full wrap-break-word text-sm text-gray-300"
                                                         >
                                                             {company.name}
                                                         </li>

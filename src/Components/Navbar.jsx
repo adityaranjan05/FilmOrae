@@ -1,5 +1,4 @@
-import { useState } from "react"
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const navLinks = [
     {
@@ -20,8 +19,6 @@ const navLinks = [
 ]
 
 export default function Navbar () {
-    const [activeNav, setActiveNav] = useState("home")
-
     return (
         <>
             <div
@@ -30,11 +27,15 @@ export default function Navbar () {
                 <nav
                     className="flex justify-between items-center mx-auto max-w-7xl px-6"
                 >
-                    <h1
-                        className="text-white text-3xl font-bold"
+                    <Link
+                        to="/"
                     >
-                        Film<span className="text-orange-500">Orae.</span>
-                    </h1>
+                        <h1
+                            className="text-white text-3xl font-bold"
+                        >
+                            Film<span className="text-orange-500">Orae.</span>
+                        </h1>
+                    </Link>
                     <ul
                         className="flex gap-10"
                     >
@@ -43,12 +44,11 @@ export default function Navbar () {
                                 <li 
                                     key={item.key}
                                 >
-                                    <Link
+                                    <NavLink
                                         to={item.path}
-                                        onClick={
-                                            () => setActiveNav(item.key)
-                                        }
-                                        className={`relative cursor-pointer
+                                        end={item.path === "/"}
+                                        className={({ isActive }) => `
+                                            relative cursor-pointer
                                             text-md
                                             font-bold
                                             after:content-['']
@@ -59,14 +59,15 @@ export default function Navbar () {
                                             after:bg-orange-500
                                             after:transition-all
                                             after:duration-300
-                                            ${item.key === activeNav
-                                                ? "text-orange-500 after:w-full"
-                                                : "text-white after:w-0 hover:after:w-full "
+                                            ${
+                                                isActive
+                                                    ? "text-orange-500 after:w-full"
+                                                    : "text-white after:w-0 hover:after:w-full"
                                             }
                                         `}
                                     >
-                                            {item.name}
-                                    </Link>
+                                        {item.name}
+                                    </NavLink>
                                 </li>
                             )
                         })}

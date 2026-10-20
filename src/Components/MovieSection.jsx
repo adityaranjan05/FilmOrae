@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import MoviesCard from "./MoviesCard";
+import { Link } from "react-router";
 
 export default function MovieSection({ title, movies }) {
     const scrollRef = useRef(null);
@@ -52,9 +53,14 @@ export default function MovieSection({ title, movies }) {
                 className="flex gap-6 overflow-x-auto p-4 hide-scrollbar scroll-smooth"
             >
                 {movies.map((movie) => (
-                    <div key={movie.id} className="shrink-0">
-                        <MoviesCard movie={movie} />
-                    </div>
+                    <Link
+                        key={movie.id}
+                        to={`/movie/${movie.id}`}
+                    >
+                        <div key={movie.id} className="shrink-0">
+                            <MoviesCard movie={movie} />
+                        </div>
+                    </Link>
                 ))}
             </div>
         </section>
