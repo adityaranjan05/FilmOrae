@@ -33,9 +33,9 @@ export default function Hero( {search, searchMovie, setSearchMovie} ) {
                     </div>
                 </div>
                 
-                <div className="max-w-xs lg:w-40 h-fit relative p-6 bg-[#12091F]/40 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg shadow-purple-950/30">
-                    <h1 className="text-white/80 font-bold text-4xl md:text-5xl">"</h1>
-                    <p className="text-white/80 text-lg md:text-xl font-bold">
+                <div className="max-w-36 lg:w-40 h-fit relative p-6 bg-[#12091F]/40 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg shadow-purple-950/30">
+                    <h1 className="text-white/80 font-bold text-3xl md:text-5xl">"</h1>
+                    <p className="text-white/80 text-sm md:text-xl font-bold">
                         Movies make life a little brighter.
                     </p>
                 </div>
