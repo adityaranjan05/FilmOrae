@@ -117,7 +117,7 @@ function MovieDetails() {
     return (
         <>
             <main
-                className="min-h-screen bg-[#12091F]"
+                className="relative min-h-screen bg-[#12091F]"
             >
                 {mediaType === "movie" && (
                     <section>
@@ -125,13 +125,13 @@ function MovieDetails() {
                             <img 
                                 src={backgroundImg}
                                 alt={title}
-                                className="fixed inset-0 z-0 h-full w-full object-cover opacity-15"
-                                />
+                                className="fixed inset-0 z-0 h-full w-full object-cover object-center opacity-15"
+                            />
                         </div>
                         <div 
                             className="relative z-10 flex flex-col gap-8 px-12 py-12 text-white space-y-6"
                         >
-                            <div className="flex gap-16">
+                            <div className="flex flex-col md:flex-col lg:flex-row gap-16">
                                 <img 
                                     src={posterLink}
                                     alt={title}
@@ -139,12 +139,12 @@ function MovieDetails() {
                                 />
                                 <div className="min-w-0 flex-1 space-y-4">
                                     <h4
-                                        className="px-3 py-0.5 rounded-xl bg-purple-950/80 w-fit border border-purple-800"
+                                        className="px-3 py-0.5 text-xs lg:text-base rounded-lg lg:rounded-xl bg-purple-950/80 w-fit border border-purple-800"
                                     >
                                         Movie
                                     </h4>
 
-                                    <h2 className="text-5xl font-bold tracking-tight">
+                                    <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight">
                                         {title}
                                     </h2>
 
@@ -155,7 +155,7 @@ function MovieDetails() {
                                             return (
                                                 <li
                                                     key={genre.id}
-                                                    className="rounded-full border border-purple-800 bg-purple-950/90 px-3 py-1 text-sm"
+                                                    className="rounded-lg lg:rounded-xl border border-purple-800 bg-purple-950/90 px-3 py-1 text-xs lg:text-sm"
                                                 >
                                                     {genre.name}
                                                 </li>
@@ -163,41 +163,41 @@ function MovieDetails() {
                                         })}
                                     </ul>
 
-                                    <div className="flex gap-2 items-end">
-                                        <Star className="text-yellow-500 fill-yellow-500 w-8 h-8"/>
-                                        <h4 className="text-2xl">
+                                    <div className="flex gap-2 items-center">
+                                        <Star className="text-yellow-500 fill-yellow-500 w-4 h-4 lg:w-8 lg:h-8"/>
+                                        <h4 className="text-lg lg:text-2xl">
                                             {rating != null ? rating.toFixed(1) : "N/A"}
                                         </h4>
-                                        <h5 className="text-gray-400 text-md self-end">
+                                        <h5 className="text-gray-400 text-xs lg:text-md">
                                             /10    
                                         </h5>
                                     </div>
 
                                     <p
-                                        className="text-gray-400 max-w-4xl"
+                                        className="text-gray-400 max-w-4xl text-xs lg:text-base"
                                     >
                                         {overview || "Overview unavailable."}
                                     </p>
 
-                                    <div className="grid grid-cols-3 gap-x-6 gap-y-3">
-                                        <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
-                                            <p className="text-sm text-gray-400">Release Date</p>
-                                            <p>{releaseDate || "N/A"}</p>
+                                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-3">
+                                        <div className="rounded-lg lg:rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
+                                            <p className="text-xs lg:text-sm text-gray-400">Release Date</p>
+                                            <p className="text-xs lg:text-base">{releaseDate || "N/A"}</p>
                                         </div>
 
                                         <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
-                                            <p className="text-sm text-gray-400">Runtime</p>
-                                            <p>{runtime != null ? `${runtime} minutes` : "N/A"}</p>
+                                            <p className="text-xs lg:text-sm text-gray-400">Runtime</p>
+                                            <p className="text-xs lg:text-base">{runtime != null ? `${runtime} minutes` : "N/A"}</p>
                                         </div>
 
                                         <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
-                                            <p className="text-sm text-gray-400">Status</p>
-                                            <p>{status || "N/A"}</p>
+                                            <p className="text-xs lg:text-sm text-gray-400">Status</p>
+                                            <p className="text-xs lg:text-base">{status || "N/A"}</p>
                                         </div>
 
                                         <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
-                                            <p className="text-sm text-gray-400">Budget</p>
-                                            <p>
+                                            <p className="text-xs lg:text-sm text-gray-400">Budget</p>
+                                            <p className="text-xs lg:text-base">
                                                 {productionBudget > 0
                                                     ? `$${productionBudget.toLocaleString()}`
                                                     : "Unavailable"}
@@ -205,8 +205,8 @@ function MovieDetails() {
                                         </div>
 
                                         <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
-                                            <p className="text-sm text-gray-400">Box Office</p>
-                                            <p>
+                                            <p className="text-xs lg:text-sm text-gray-400">Box Office</p>
+                                            <p className="text-xs lg:text-base">
                                                 {boxOffice > 0
                                                     ? `$${boxOffice.toLocaleString()}`
                                                     : "Unavailable"}
@@ -214,19 +214,19 @@ function MovieDetails() {
                                         </div>
 
                                         <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
-                                            <p className="text-sm text-gray-400">Language</p>
-                                            <p>{originalLanguage?.toUpperCase() || "N/A"}</p>
+                                            <p className="text-xs lg:text-sm text-gray-400">Language</p>
+                                            <p className="text-xs lg:text-base">{originalLanguage?.toUpperCase() || "N/A"}</p>
                                         </div>
 
                                         <div className="rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
-                                            <p className="text-sm text-gray-400">Popularity</p>
-                                            <p>
+                                            <p className="text-xs lg:text-sm text-gray-400">Popularity</p>
+                                            <p className="text-xs lg:text-base">
                                                 {popularity != null ? popularity.toFixed(2) : "N/A"}
                                             </p>
                                         </div>
 
                                         <div className="min-w-0 rounded-xl bg-white/5 p-4 shadow-md shadow-black/30 transition-all duration-150 hover:shadow-lg hover:-rotate-y-10 hover:rotate-x-10">
-                                            <p className="text-sm text-gray-400">
+                                            <p className="text-xs lg:text-sm text-gray-400">
                                                 Production Companies
                                             </p>
                                             <ul
@@ -247,7 +247,7 @@ function MovieDetails() {
                                     </div>
 
                                     {tagline && (
-                                        <p className="italic text-purple-300">{tagline}</p>
+                                        <p className="italic text-purple-300 text-sm lg:text-base">{tagline}</p>
                                     )}
 
                                     {homepageLink && (
@@ -255,25 +255,25 @@ function MovieDetails() {
                                             href={homepageLink}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="flex gap-2 text-purple-300 hover:text-purple-200"
+                                            className="flex gap-2 text-sm lg:text-base text-purple-300 hover:text-purple-200 items-center"
                                         >
-                                            <span>Official Website</span> <span><MoveUpRight /></span>
+                                            <span>Official Website</span> <span><MoveUpRight className="w-4 h-4 lg:w-6 lg:h-6"/></span>
                                         </a>
                                     )}
                                 </div>
                             </div>
 
-                            <div className="space-y-12">
+                            <div className="space-y-8 lg:space-y-12">
                                 <div className="flex justify-between">
-                                    <h1 className="text-3xl font-bold tracking-wide">
+                                    <h1 className="text-xl lg:text-4xl font-bold tracking-wide">
                                         Cast
                                     </h1>
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-2 items-center">
                                         <button
                                             type="button"
                                             onClick={scrollLeft}
                                             aria-label={`Scroll ${title} left`}
-                                            className="flex h-10 w-10 items-center justify-center rounded-full border border-purple-400/30 bg-purple-950/70 text-white transition hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                            className="flex h-6 w-6 lg:h-10 lg:w-10 items-center justify-center rounded-full border border-purple-400/30 bg-purple-950/70 text-white transition hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
                                         >
                                             <ChevronLeft size={22} />
                                         </button>
@@ -282,7 +282,7 @@ function MovieDetails() {
                                             type="button"
                                             onClick={scrollRight}
                                             aria-label={`Scroll ${title} right`}
-                                            className="flex h-10 w-10 items-center justify-center rounded-full border border-purple-400/30 bg-purple-950/70 text-white transition hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                            className="flex h-6 w-6 lg:h-10 lg:w-10 items-center justify-center rounded-full border border-purple-400/30 bg-purple-950/70 text-white transition hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
                                         >
                                             <ChevronRight size={22} />
                                         </button>
@@ -290,7 +290,7 @@ function MovieDetails() {
                                 </div>
                                 <div
                                     ref={scrollRef}
-                                    className="flex flex-nowrap overflow-y-hidden overflow-x-auto hide-scrollbar scroll-smooth gap-10 pb-4"
+                                    className="flex flex-nowrap overflow-y-hidden overflow-x-auto hide-scrollbar scroll-smooth gap-6 lg:gap-10 pb-2 lg:pb-4"
                                 >
                                     {cast.map((actor) => {
                                         const castName = actor.name || "NA";
@@ -301,20 +301,20 @@ function MovieDetails() {
                                         return (
                                             <div 
                                                 key={actor.id}
-                                                className="shrink-0 w-42"
+                                                className="shrink-0 w-28 lg:w-42"
                                             >
                                                 <img 
                                                     src={profilePic}
                                                     alt={actor.name}
-                                                    className="w-42 h-42 rounded-full object-cover select-none"
+                                                    className="w-28 lg:w-42 h-28 lg:h-42 rounded-full object-cover select-none"
                                                 />
                                                 <h2
-                                                    className="text-center pt-4 font-bold tracking-wide text-md"
+                                                    className="text-center pt-4 font-bold tracking-wide text-xs lg:text-md"
                                                 >
                                                     {castName}
                                                 </h2>
                                                 <h2
-                                                    className="wrap-break-word max-w-42 text-center pt-1 font-bold tracking-wide text-md text-gray-400"
+                                                    className="wrap-break-word max-w-28 lg:max-w-42 text-center pt-1 font-bold tracking-wide text-xs lg:text-md text-gray-400"
                                                 >
                                                     ({characterName})
                                                 </h2>
@@ -328,7 +328,7 @@ function MovieDetails() {
                                         <iframe
                                              src={trailer}
                                             title={`${title} trailer`}
-                                            className=" w-full h-[85dvh] aspect-video rounded-xl"
+                                            className=" w-full lg:h-[85dvh] aspect-video rounded-xl"
                                             
                                             allowFullScreen
                                         />
