@@ -3,12 +3,12 @@ import SearchResultsMovieCard from "./SearchResultsMovieCard";
 function SearchMoviesSection ({ title, movies }) {
     return (
         <>
-            <section className="mx-auto max-w-[80dvw] px-6 py-8">
-                <h2 className="mb-6 text-2xl font-bold text-white">
+            <section className="mx-auto max-w-[80dvw] px-4 lg:px-6 py-8">
+                <h2 className="mb-6 text-lg lg:text-2xl font-bold text-white">
                     {title}
                 </h2>
     
-                <div className="grid grid-cols-2 gap-4 items-stretch">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
                     {movies.map((movie) => (
                         <div 
                             key={movie.id} 
