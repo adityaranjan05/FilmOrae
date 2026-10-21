@@ -12,7 +12,7 @@ export default function MoviesCard({ movie }) {
     const rating = Number(movie.vote_average).toFixed(1);
 
     return (
-        <div className="w-52 h-auto rounded-lg text-white">
+        <div className="w-28 lg:w-52 h-auto rounded-lg text-white">
             <img
                 src={posterLink}
                 alt={`${movieName} poster`}
@@ -24,7 +24,7 @@ export default function MoviesCard({ movie }) {
                 }}
             />
 
-            <h2 className="text-lg text-gray-200 font-bold mt-2">
+            <h2 className="text-md lg:text-lg text-gray-200 font-bold mt-2">
                 {movieName}
             </h2>
 

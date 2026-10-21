@@ -25,19 +25,19 @@ export default function Navbar () {
                 className="bg-[radial-gradient(circle_at_50%_0%,#241044_0%,#1B0C32_35%,#120820_70%,#0A0510_100%)] py-4 border-b border-purple-500/20 shadow-xl shadow-purple-950/30 sticky top-0 z-50 w-full"
             >
                 <nav
-                    className="flex justify-between items-center mx-auto max-w-7xl px-6"
+                    className="flex justify-between items-center mx-auto max-w-7xl px-4 md:px-6"
                 >
                     <Link
                         to="/"
                     >
                         <h1
-                            className="text-white text-3xl font-bold"
+                            className="text-white text-2xl md:text-3xl font-bold"
                         >
                             Film<span className="text-orange-500">Orae.</span>
                         </h1>
                     </Link>
                     <ul
-                        className="flex gap-10"
+                        className="flex gap-6 md:gap-10"
                     >
                         {navLinks.map ((item) => {
                             return (
@@ -49,7 +49,8 @@ export default function Navbar () {
                                         end={item.path === "/"}
                                         className={({ isActive }) => `
                                             relative cursor-pointer
-                                            text-md
+                                            text-sm
+                                            md:text-md
                                             font-bold
                                             after:content-['']
                                             after:absolute

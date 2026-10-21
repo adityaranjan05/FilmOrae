@@ -32,7 +32,7 @@ export default function MovieSection({ title, movies }) {
                         type="button"
                         onClick={scrollLeft}
                         aria-label={`Scroll ${title} left`}
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-purple-400/30 bg-purple-950/70 text-white transition hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className="flex h-8 w-8 lg:h-10 lg:w-10 items-center justify-center rounded-full border border-purple-400/30 bg-purple-950/70 text-white transition hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
                     >
                         <ChevronLeft size={22} />
                     </button>
@@ -41,7 +41,7 @@ export default function MovieSection({ title, movies }) {
                         type="button"
                         onClick={scrollRight}
                         aria-label={`Scroll ${title} right`}
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-purple-400/30 bg-purple-950/70 text-white transition hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className="flex h-8 w-8 lg:h-10 lg:w-10 items-center justify-center rounded-full border border-purple-400/30 bg-purple-950/70 text-white transition hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
                     >
                         <ChevronRight size={22} />
                     </button>
